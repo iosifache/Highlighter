@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+  <!-- Default -->
+  <color name="black">#000000</color>
+  <color name="white">#ffffff</color>
+
+  <!-- British palette -->
+  <color name="blue_nights_gray">#353b48</color>
+  <color name="lynx_white">#f5f6fa</color>
+  <color name="vanadyl_blue">#0097e6</color>
+  <color name="nasturcian_flower_red">#e84118</color>
+
+</resources>

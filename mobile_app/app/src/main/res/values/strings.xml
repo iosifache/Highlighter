@@ -1,0 +1,53 @@
+<resources>
+
+  <!-- Titles -->
+  <string name="title_app_name">Highlighter</string>
+  <string name="title_quote_list">Quotes List</string>
+  <string name="title_quote_details">Quote Details</string>
+  <string name="title_quote_source_name">Source Name</string>
+  <string name="title_quote_source_url">Source URL</string>
+  <string name="title_quote_content">Content</string>
+  <string name="title_quote_date">Creation Date</string>
+  <string name="title_quote_labels">Labels</string>
+  <string name="title_settings">Settings</string>
+  <string name="title_settings_api_key">Notion.so API Key</string>
+  <string name="title_settings_collection_url">Notion.so Collection URL</string>
+  <string name="title_settings_proxy_url">Proxy Website URL</string>
+  <string name="title_settings_sync">Sync Interval</string>
+  <string name="title_settings_dark_theme">Dark Theme</string>
+
+  <!-- Labels -->
+  <string name="label_hourly">Hourly</string>
+  <string name="label_daily">Daily</string>
+  <string name="label_monthly">Monthly</string>
+
+  <!-- Content descriptions (for images) -->
+  <string name="desc_logo">Highlighter Logo</string>
+
+  <!-- Input fields hints -->
+  <string name="hint_property_new_val">New value of the property</string>
+  <string name="hint_property_api_key">The API key for Notion.so</string>
+  <string name="hint_settings_collection_url">The URL of the Notion.so collection</string>
+  <string name="hint_settings_proxy_url">The URL of the proxy website</string>
+
+  <!-- Messages -->
+  <string name="msg_new_source_name">Enter the value of the <b>source name</b>.</string>
+  <string name="msg_new_source_url">Enter the value of the <b>source URL</b>.</string>
+  <string name="msg_new_quote_content">Enter the value of the <b>quote content</b>.</string>
+  <string name="msg_new_topics">Enter the <b>labels</b>, prefixed with \"<i>#</i>\" and concatenated by \"<i> </i>\".</string>
+  <string name="msg_lorem_short">Lorem ipsum</string>
+  <string name="msg_lorem_medium">Lorem ipsum dolor sit amet, consectetur elit.</string>
+  <string name="msg_lorem_long">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer interdum urna euismod, vulputate velit in, accumsan velit. Phasellus finibus eros vel nunc dapibus, non lacinia orci pellentesque. Fusce fermentum dui vitae dapibus aliquam. Suspendisse in posuere ipsum. Donec consequat, enim in auctor dignissim, tellus leo dictum ipsum, vel blandit mi sem in ante. Phasellus nec nisl vel velit semper faucibus. Quisque non porttitor velit. Etiam ut arcu ut elit ornare mollis.</string>
+
+  <!-- Action buttons -->
+  <string name="action_cancel">Cancel</string>
+  <string name="action_ok">OK</string>
+  <string name="action_save">Save</string>
+  <string name="action_notion_download">Download from Notion.so</string>
+  <string name="action_notion_upload">Upload to Notion.so</string>
+
+  <!-- Miscellaneous -->
+  <string name="misc_topic_prefix">#</string>
+  <string name="misc_topic_separator">&#160;</string>
+
+</resources>

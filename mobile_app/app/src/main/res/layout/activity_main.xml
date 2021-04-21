@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:orientation="vertical"
+  android:theme="@style/Theme.Highlighter"
+  tools:context=".MainActivity">
+
+  <!-- Logo -->
+  <ImageView
+    android:layout_width="50dp"
+    android:layout_height="50dp"
+    android:layout_marginTop="20dp"
+    android:layout_marginStart="20dp"
+    android:layout_marginLeft="20dp"
+    android:contentDescription="@string/desc_logo"
+    android:src="@drawable/ic_logo"
+    android:onClick="editSettings" />
+
+  <!-- Menu button -->
+  <info.androidhive.fontawesome.FontTextView
+    android:id="@+id/btn_launch_settings"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="20dp"
+    android:layout_marginEnd="25dp"
+    android:layout_marginRight="25dp"
+    android:layout_alignParentEnd="true"
+    android:layout_alignParentRight="true"
+    android:text="@string/fa_cog_solid"
+    android:textColor="?attr/colorPrimary"
+    android:textSize="20sp"
+    app:solid_icon="true"
+    android:onClick="editSettings"
+    android:clickable="true"
+    android:focusable="true" />
+  <info.androidhive.fontawesome.FontTextView
+    android:id="@+id/btn_launch_statistics"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="20dp"
+    android:layout_marginEnd="25dp"
+    android:layout_marginRight="25dp"
+    android:layout_toLeftOf="@id/btn_launch_settings"
+    android:layout_toStartOf="@id/btn_launch_settings"
+    android:text="@string/fa_chart_area_solid"
+    android:textColor="?attr/colorPrimary"
+    android:textSize="20sp"
+    app:solid_icon="true" />
+  <info.androidhive.fontawesome.FontTextView
+    android:id="@+id/btn_launch_search"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="20dp"
+    android:layout_marginEnd="25dp"
+    android:layout_marginRight="25dp"
+    android:layout_toLeftOf="@id/btn_launch_statistics"
+    android:layout_toStartOf="@id/btn_launch_statistics"
+    android:text="@string/fa_search_solid"
+    android:textColor="?attr/colorPrimary"
+    android:textSize="20sp"
+    app:solid_icon="true" />
+  <info.androidhive.fontawesome.FontTextView
+    android:id="@+id/btn_launch_id"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="20dp"
+    android:layout_marginEnd="25dp"
+    android:layout_marginRight="25dp"
+    android:layout_toLeftOf="@id/btn_launch_search"
+    android:layout_toStartOf="@id/btn_launch_search"
+    android:text="@string/fa_tag_solid"
+    android:textColor="?attr/colorPrimary"
+    android:textSize="20sp"
+    app:solid_icon="true"
+    tools:ignore="RelativeOverlap" />
+
+  <!-- Title -->
+  <TextView
+    android:textStyle="bold"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="100dp"
+    android:layout_marginStart="10dp"
+    android:layout_marginLeft="10dp"
+    android:text="@string/title_quote_list"
+    android:textColor="?attr/colorPrimary"
+    android:textSize="24sp" />
+
+  <!-- Quotes list -->
+  <ListView
+    android:id="@+id/main_lw_quotes"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="150dp"
+    android:divider="@android:color/transparent"
+    tools:listitem="@layout/activity_quotes_list_item" />
+
+</RelativeLayout>

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:theme="@style/Theme.Highlighter"
+  tools:context=".StringPropertyEditDialog"
+  android:orientation="vertical">
+
+  <!-- Description -->
+  <TextView
+    android:id="@+id/tv_string_property_edit_description"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="10dp"
+    android:layout_marginLeft="10dp"
+    android:layout_marginRight="10dp"
+    android:text="@string/msg_lorem_medium"
+    android:textSize="14sp"
+    android:justificationMode="inter_word"
+    tools:ignore="MissingConstraints"
+    tools:targetApi="o" />
+
+  <!-- New value of the property -->
+  <EditText
+    android:id="@+id/et_string_property_edit_value"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="10dp"
+    android:layout_marginLeft="10dp"
+    android:layout_marginRight="10dp"
+    android:text="@string/msg_lorem_medium"
+    android:textSize="14sp"
+    android:autofillHints="@string/hint_property_new_val"
+    android:hint="@string/hint_property_new_val"
+    android:inputType="text" />
+
+  <!-- Buttons -->
+  <RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="10dp">
+    <Button
+      android:id="@+id/btn_string_property_edit_cancel"
+      style="@style/Widget.MaterialComponents.Button.TextButton"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginEnd="100dp"
+      android:layout_marginRight="100dp"
+      android:layout_alignParentEnd="true"
+      android:layout_alignParentRight="true"
+      android:text="@string/action_cancel" />
+    <Button
+      android:id="@+id/btn_string_property_edit_ok"
+      style="@style/Widget.MaterialComponents.Button.TextButton"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginEnd="10dp"
+      android:layout_marginRight="10dp"
+      android:layout_alignParentEnd="true"
+      android:layout_alignParentRight="true"
+      android:text="@string/action_ok"
+      tools:ignore="RelativeOverlap" />
+  </RelativeLayout>
+
+</LinearLayout>
