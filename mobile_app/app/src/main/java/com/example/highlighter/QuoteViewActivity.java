@@ -13,13 +13,12 @@ import android.widget.Button;
 import android.widget.TextView;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
-import com.example.highlighter.models.Quote;
+import com.example.highlighter.data.ApplicationDatabase;
+import com.example.highlighter.data.Quote;
 import com.example.highlighter.utils.Configuration;
 import info.androidhive.fontawesome.FontTextView;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -58,7 +57,7 @@ public class QuoteViewActivity extends AppCompatActivity {
 
     // Populate the quote
     this.quote.setContent(content);
-    this.quote.setCreationDateAsDatetype(new Date());
+    this.quote.setCreationDateAsDate(new Date());
   }
 
   private void populateFieldsFromQuote() {
@@ -76,9 +75,7 @@ public class QuoteViewActivity extends AppCompatActivity {
 
     // Set the creation date
     TextView quoteCreationDate = this.findViewById(R.id.tv_quote_view_date);
-    @SuppressLint("SimpleDateFormat") DateFormat dateFormat = new SimpleDateFormat(
-        Configuration.STRINGIFIED_DATE_FORMAT);
-    quoteCreationDate.setText(dateFormat.format(quote.getCreationDate()));
+    quoteCreationDate.setText(quote.getCreationDate());
 
     // Set the labels
     TextView labels = this.findViewById(R.id.tv_quote_view_labels_view);
@@ -89,9 +86,19 @@ public class QuoteViewActivity extends AppCompatActivity {
     Intent intent = new Intent();
     if (!this.launchedFromOutside) {
       intent.putExtra(Configuration.INTENT_EXTRA_MODIFIED_QUOTE_NAME, quote);
+    } else {
+      ApplicationDatabase.getInstance(this).quoteDAO().insert(quote);
     }
-    else{
-      // TODO: Save the quote in the database
+
+    setResult(RESULT_OK, intent);
+    finish();
+  }
+
+  public void delete(View view) {
+    Intent intent = new Intent();
+    if (!this.launchedFromOutside) {
+      intent.putExtra(Configuration.INTENT_EXTRA_IS_QUOTE_REMOVED, true);
+      intent.putExtra(Configuration.INTENT_EXTRA_MODIFIED_QUOTE_NAME, quote);
     }
 
     setResult(RESULT_OK, intent);
@@ -195,7 +202,7 @@ public class QuoteViewActivity extends AppCompatActivity {
           newDate.set(year, monthOfYear, dayOfMonth);
 
           // Change the creation date
-          quote.setCreationDateAsDatetype(newDate.getTime());
+          quote.setCreationDateAsDate(newDate.getTime());
 
           // Refresh the shown data
           QuoteViewActivity.this.populateFieldsFromQuote();

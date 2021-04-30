@@ -56,7 +56,6 @@ def update_database_entries(api_key: str, encoded_collection_url: str):
         row.remove()
 
     # Insert rows for each quote in the request
-    print(request.data)
     quotes_list = json.loads(request.data)
     for quote in quotes_list:
         row = collection_view.collection.add_row()

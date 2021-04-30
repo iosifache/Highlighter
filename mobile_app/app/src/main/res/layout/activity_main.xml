@@ -63,20 +63,6 @@
     android:textColor="?attr/colorPrimary"
     android:textSize="20sp"
     app:solid_icon="true" />
-  <info.androidhive.fontawesome.FontTextView
-    android:id="@+id/btn_launch_id"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_marginTop="20dp"
-    android:layout_marginEnd="25dp"
-    android:layout_marginRight="25dp"
-    android:layout_toLeftOf="@id/btn_launch_search"
-    android:layout_toStartOf="@id/btn_launch_search"
-    android:text="@string/fa_tag_solid"
-    android:textColor="?attr/colorPrimary"
-    android:textSize="20sp"
-    app:solid_icon="true"
-    tools:ignore="RelativeOverlap" />
 
   <!-- Title -->
   <TextView

@@ -234,6 +234,20 @@
       android:layout_marginRight="10dp"
       android:text="@string/msg_lorem_medium" />
 
+    <!-- Action button -->
+    <Button
+      style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="20dp"
+      android:layout_marginStart="10dp"
+      android:layout_marginEnd="10dp"
+      android:layout_marginLeft="10dp"
+      android:layout_marginRight="10dp"
+      android:text="@string/action_delete"
+      android:onClick="delete"
+      tools:ignore="RelativeOverlap" />
+
   </LinearLayout>
 
 </RelativeLayout>

@@ -9,7 +9,9 @@ import android.widget.ListView;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.highlighter.controllers.CustomQuotesListAdaptor;
-import com.example.highlighter.models.Quote;
+import com.example.highlighter.data.ApplicationDatabase;
+import com.example.highlighter.data.Quote;
+import com.example.highlighter.data.QuoteDAO;
 import com.example.highlighter.tasks.NotionUploader;
 import com.example.highlighter.utils.Configuration;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -22,11 +24,12 @@ import java.util.concurrent.TimeUnit;
 public class MainActivity extends AppCompatActivity {
 
   public static MainActivity instance = null;
-  private final ArrayList<Quote> quotesList = new ArrayList<>();
+  private QuoteDAO quotesDAO = null;
+  private ArrayList<Quote> quotesList = new ArrayList<>();
   private CustomQuotesListAdaptor adapter;
   private int syncInterval;
   private long lastUpdate;
-  private int oldTextColor;
+  private int oldTextColor = -1;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +39,11 @@ public class MainActivity extends AppCompatActivity {
 
     MainActivity.instance = this;
 
+    // Get the instance of the database and its objects
+    ApplicationDatabase database = ApplicationDatabase.getInstance(this);
+    this.quotesDAO = database.quoteDAO();
+    this.quotesList = (ArrayList<Quote>) this.quotesDAO.getAll();
+
     // Clear the preferences
     if (Configuration.SHARED_PREFERENCES_CLEAR_ON_START) {
       SharedPreferences settings = this.getApplicationContext()
@@ -43,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
       settings.edit().clear().apply();
     }
 
-    ListView quotesList = (ListView) findViewById(R.id.main_lw_quotes);
+    ListView quotesList = findViewById(R.id.main_lw_quotes);
 
     // Attach the custom adapter
     Context context = getApplicationContext();
@@ -72,6 +80,13 @@ public class MainActivity extends AppCompatActivity {
       }
     }
 
+  }
+
+  @Override
+  public void onDestroy(){
+    super.onDestroy();
+
+    ApplicationDatabase.destroyInstance();
   }
 
   private void updateLastUpdate() {
@@ -113,12 +128,19 @@ public class MainActivity extends AppCompatActivity {
       setColor = this.oldTextColor;
     }
 
-    settingsButton.setTextColor(setColor);
+    if (setColor != -1) {
+      settingsButton.setTextColor(setColor);
+    }
   }
 
   public void setQuotesList(ArrayList<Quote> quotesList) {
+    // Update the local list of objects
     this.quotesList.clear();
     this.quotesList.addAll(quotesList);
+
+    // Update the database
+    this.quotesDAO.deleteAll();
+    this.quotesDAO.insertAll(this.quotesList);
 
     this.adapter.notifyDataSetChanged();
   }
@@ -142,8 +164,18 @@ public class MainActivity extends AppCompatActivity {
         && data != null) {
       Quote quote = (Quote) data
           .getSerializableExtra(Configuration.INTENT_EXTRA_MODIFIED_QUOTE_NAME);
+      boolean isQuoteRemoved = data
+          .getBooleanExtra(Configuration.INTENT_EXTRA_IS_QUOTE_REMOVED, false);
 
-      this.quotesList.set(quote.getId(), quote);
+      if (isQuoteRemoved) {
+        this.quotesDAO.delete(quote);
+      } else {
+        this.quotesDAO.updateAll(quote);
+      }
+
+      // Update the quotes
+      this.setQuotesList((ArrayList<Quote>) this.quotesDAO.getAll());
+
       this.adapter.notifyDataSetChanged();
     } else if (requestCode == Configuration.INTENT_REQ_CODE_SETTINGS && resultCode == RESULT_OK
         && data != null) {

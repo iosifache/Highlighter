@@ -44,6 +44,7 @@
   <string name="action_cancel">Cancel</string>
   <string name="action_ok">OK</string>
   <string name="action_save">Save</string>
+  <string name="action_delete">Delete</string>
   <string name="action_notion_download">Download from Notion.so</string>
   <string name="action_notion_upload">Upload to Notion.so</string>
 

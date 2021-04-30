@@ -10,7 +10,7 @@ import android.widget.TextView;
 import com.example.highlighter.MainActivity;
 import com.example.highlighter.QuoteViewActivity;
 import com.example.highlighter.R;
-import com.example.highlighter.models.Quote;
+import com.example.highlighter.data.Quote;
 import com.example.highlighter.utils.Configuration;
 import info.androidhive.fontawesome.FontTextView;
 import java.util.ArrayList;

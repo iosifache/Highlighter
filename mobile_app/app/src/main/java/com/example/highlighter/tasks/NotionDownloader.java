@@ -5,7 +5,7 @@ import android.os.AsyncTask;
 import android.os.Build.VERSION_CODES;
 import androidx.annotation.RequiresApi;
 import com.example.highlighter.MainActivity;
-import com.example.highlighter.models.Quote;
+import com.example.highlighter.data.Quote;
 import com.example.highlighter.utils.APIWorker;
 import java.util.ArrayList;
 

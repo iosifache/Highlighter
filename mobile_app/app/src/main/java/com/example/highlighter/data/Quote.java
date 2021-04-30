@@ -1,5 +1,8 @@
-package com.example.highlighter.models;
+package com.example.highlighter.data;
 
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
 import com.example.highlighter.utils.Configuration;
 import java.io.Serializable;
 import java.net.URL;
@@ -12,13 +15,25 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+@Entity(tableName = "quotes")
 public class Quote implements Serializable {
 
-  private int id = -1;
+  @PrimaryKey(autoGenerate = true)
+  private int id;
+
+  @ColumnInfo(name = "source_title")
   private String sourceTitle = "";
+
+  @ColumnInfo(name = "source_url")
   private URL sourceURL = null;
+
+  @ColumnInfo(name = "content")
   private String content = "";
-  private Date creationDate = null;
+
+  @ColumnInfo(name = "creation_date")
+  private String creationDate = "";
+
+  @ColumnInfo(name = "labels")
   private List<String> labels = null;
 
   public Quote() {
@@ -33,11 +48,7 @@ public class Quote implements Serializable {
     this.content = content;
     this.labels = labels;
 
-    try {
-      this.setCreationDate(creationDate);
-    } catch (ParseException e) {
-      this.creationDate = new Date();
-    }
+    this.setCreationDate(creationDate);
   }
 
   public int getId() {
@@ -80,25 +91,30 @@ public class Quote implements Serializable {
     this.content = content;
   }
 
-  public Date getCreationDate() {
+  public String getCreationDate() {
     return this.creationDate;
   }
 
-  public void setCreationDate(String date) throws ParseException {
-    SimpleDateFormat formatter = new SimpleDateFormat(Configuration.STRINGIFIED_DATE_FORMAT,
-        Locale.ENGLISH);
-    this.creationDate = formatter.parse(date);
+  public void setCreationDate(String date) {
+    this.creationDate = date;
   }
 
-  public String getCreationDateAsDatetype() {
+  public Date getCreationDateAsDate() {
     SimpleDateFormat formatter = new SimpleDateFormat(Configuration.STRINGIFIED_DATE_FORMAT,
         Locale.ENGLISH);
 
-    return formatter.format(this.creationDate);
+    try {
+      return formatter.parse(this.creationDate);
+    } catch (ParseException e) {
+      return null;
+    }
   }
 
-  public void setCreationDateAsDatetype(Date creationDate) {
-    this.creationDate = creationDate;
+  public void setCreationDateAsDate(Date creationDate) {
+    SimpleDateFormat formatter = new SimpleDateFormat(Configuration.STRINGIFIED_DATE_FORMAT,
+        Locale.ENGLISH);
+
+    this.creationDate = formatter.format(creationDate);
   }
 
   public List<String> getLabels() {

@@ -6,7 +6,7 @@ import android.content.SharedPreferences;
 import android.os.Build.VERSION_CODES;
 import androidx.annotation.RequiresApi;
 import com.example.highlighter.MainActivity;
-import com.example.highlighter.models.Quote;
+import com.example.highlighter.data.Quote;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -68,6 +68,8 @@ public class APIWorker {
       // Set the request configuration
       connection.setConnectTimeout(10 * 1000);
       connection.setRequestMethod("POST");
+      connection.setRequestProperty("Content-Type", "application/json; utf-8");
+      connection.setDoOutput(true);
 
       // Set the request data
       try (OutputStream os = connection.getOutputStream()) {
@@ -110,7 +112,8 @@ public class APIWorker {
 
       return mapper.readValue(responseString,
           mapper.getTypeFactory().constructCollectionType(ArrayList.class, Quote.class));
-    } catch (Exception ignored) {
+    } catch (Exception e) {
+      System.out.print(e);
     }
 
     return null;

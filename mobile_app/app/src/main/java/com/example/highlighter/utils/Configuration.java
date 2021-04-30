@@ -16,10 +16,11 @@ public class Configuration {
   public static int INTENT_REQ_CODE_QUOTE_VIEW = 0;
   public static int INTENT_REQ_CODE_SETTINGS = 1;
   public static String INTENT_EXTRA_MODIFIED_QUOTE_NAME = "quote";
+  public static String INTENT_EXTRA_IS_QUOTE_REMOVED = "is_quote_removed";
   public static String INTENT_EXTRA_SETTINGS_CHANGED = "settings_changed";
 
   // SharedPreferences names and configuration
-  public static boolean SHARED_PREFERENCES_CLEAR_ON_START = true;
+  public static boolean SHARED_PREFERENCES_CLEAR_ON_START = false;
   public static String SHARED_PREFERENCES_NAME = "settings";
   public static String SHARED_PREFERENCES_MEMBER_API_KEY = "api_key";
   public static String SHARED_PREFERENCES_MEMBER_COLLECTION_URL = "collection_url";

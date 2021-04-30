@@ -69,7 +69,7 @@ public class SettingsActivity extends AppCompatActivity {
 
     SeekBar syncIntervalSeekBar = this.findViewById(R.id.sb_sync_interval);
     int syncInterval = syncIntervalSeekBar.getProgress();
-    editor.putInt(Configuration.SHARED_PREFERENCES_MEMBER_API_URL, syncInterval);
+    editor.putInt(Configuration.SHARED_PREFERENCES_MEMBER_SYNC_INTERVAL, syncInterval);
 
     // Check if the pair of API key - collection URL is a new one
     if (!oldApiKey.equals(apiKey) && !oldCollectionURL.equals(collectionURL)) {
