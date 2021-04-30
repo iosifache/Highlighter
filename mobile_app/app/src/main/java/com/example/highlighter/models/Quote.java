@@ -6,6 +6,7 @@ import java.net.URL;
 import java.text.Normalizer;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -14,9 +15,9 @@ import java.util.Locale;
 public class Quote implements Serializable {
 
   private int id = -1;
-  private String sourceTitle = null;
+  private String sourceTitle = "";
   private URL sourceURL = null;
-  private String content = null;
+  private String content = "";
   private Date creationDate = null;
   private List<String> labels = null;
 
@@ -63,6 +64,14 @@ public class Quote implements Serializable {
     this.sourceURL = sourceURL;
   }
 
+  public String getSourceURLAsString() {
+    if (this.sourceURL != null) {
+      return this.sourceURL.toString();
+    } else {
+      return "";
+    }
+  }
+
   public String getContent() {
     return this.content;
   }
@@ -101,13 +110,18 @@ public class Quote implements Serializable {
   }
 
   public String getStringifiedLabels() {
-    StringBuilder allLabels = new StringBuilder();
-    for (String label : this.labels) {
-      allLabels.append(Configuration.TOPIC_PREFIX).append(label)
-          .append(Configuration.TOPIC_SEPARATOR);
+    if (this.labels != null) {
+      StringBuilder allLabels = new StringBuilder();
+      for (String label : this.labels) {
+        allLabels.append(Configuration.TOPIC_PREFIX).append(label)
+            .append(Configuration.TOPIC_SEPARATOR);
+      }
+
+      return allLabels.substring(0, allLabels.length() - 1);
+    } else {
+      return "";
     }
 
-    return allLabels.substring(0, allLabels.length() - 1);
   }
 
   public void setStringifiedLabels(String stringifiedLabels) {
@@ -117,7 +131,11 @@ public class Quote implements Serializable {
       new_labels[i] = new_labels[i].replace(Configuration.TOPIC_PREFIX, "");
     }
 
-    this.labels.clear();
+    if (this.labels != null) {
+      this.labels.clear();
+    } else {
+      this.labels = new ArrayList<>();
+    }
     this.labels.addAll(Arrays.asList(new_labels));
   }
 

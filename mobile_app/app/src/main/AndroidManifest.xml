@@ -3,7 +3,7 @@
   xmlns:tools="http://schemas.android.com/tools"
   package="com.example.highlighter">
 
-  <uses-permission android:name="android.permission.INTERNET"/>
+  <uses-permission android:name="android.permission.INTERNET" />
 
   <application
     android:allowBackup="true"
@@ -14,9 +14,17 @@
     android:usesCleartextTraffic="true"
     android:theme="@style/Theme.Highlighter"
     tools:targetApi="m">
-    <activity android:name=".SettingsActivity"/>
+    <activity android:name=".SettingsActivity" />
     <activity android:name=".StringPropertyEditDialog" />
-    <activity android:name=".QuoteViewActivity" />
+    <activity
+      android:name=".QuoteViewActivity"
+      android:label="@string/label_intent_add_quote">
+      <intent-filter>
+        <action android:name="android.intent.action.PROCESS_TEXT" />
+        <category android:name="android.intent.category.DEFAULT" />
+        <data android:mimeType="text/plain" />
+      </intent-filter>
+    </activity>
     <activity android:name=".QuotesListItemActivity" />
     <activity android:name=".MainActivity">
       <intent-filter>

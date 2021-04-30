@@ -4,12 +4,14 @@ import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.os.Build.VERSION_CODES;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.highlighter.models.Quote;
 import com.example.highlighter.utils.Configuration;
@@ -19,12 +21,15 @@ import java.net.URL;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 public class QuoteViewActivity extends AppCompatActivity {
 
-  private Quote quote;
+  private boolean launchedFromOutside;
+  private Quote quote = null;
   private int lastDialogOpenedID;
 
+  @RequiresApi(api = VERSION_CODES.M)
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -34,7 +39,26 @@ public class QuoteViewActivity extends AppCompatActivity {
     Intent intent = getIntent();
     quote = (Quote) intent
         .getSerializableExtra(Configuration.INTENT_EXTRA_MODIFIED_QUOTE_NAME);
+    String quoteContent = (String) intent.getCharSequenceExtra(Intent.EXTRA_PROCESS_TEXT);
+
+    // Save the method of activity launch
+    this.launchedFromOutside = (quote == null);
+
+    // Process the quote or its details
+    if (quote == null) {
+      this.populateFieldsFromNewQuote(quoteContent);
+    }
     this.populateFieldsFromQuote();
+
+  }
+
+  private void populateFieldsFromNewQuote(String content) {
+    // Create a new quote
+    this.quote = new Quote();
+
+    // Populate the quote
+    this.quote.setContent(content);
+    this.quote.setCreationDateAsDatetype(new Date());
   }
 
   private void populateFieldsFromQuote() {
@@ -44,7 +68,7 @@ public class QuoteViewActivity extends AppCompatActivity {
 
     // Set the source URL
     TextView quoteSourceURL = this.findViewById(R.id.tv_quote_view_source_url);
-    quoteSourceURL.setText(quote.getSourceURL().toString());
+    quoteSourceURL.setText(quote.getSourceURLAsString());
 
     // Set the content
     TextView quoteContent = this.findViewById(R.id.btn_quote_view_edit_content);
@@ -63,7 +87,12 @@ public class QuoteViewActivity extends AppCompatActivity {
 
   public void goBack(View view) {
     Intent intent = new Intent();
-    intent.putExtra(Configuration.INTENT_EXTRA_MODIFIED_QUOTE_NAME, quote);
+    if (!this.launchedFromOutside) {
+      intent.putExtra(Configuration.INTENT_EXTRA_MODIFIED_QUOTE_NAME, quote);
+    }
+    else{
+      // TODO: Save the quote in the database
+    }
 
     setResult(RESULT_OK, intent);
     finish();
@@ -91,7 +120,7 @@ public class QuoteViewActivity extends AppCompatActivity {
         break;
       case R.id.btn_quote_view_edit_source_url:
         description = getText(R.string.msg_new_source_url);
-        value = quote.getSourceURL().toString();
+        value = quote.getSourceURLAsString();
         break;
       case R.id.btn_quote_view_edit_quote_content:
         description = getText(R.string.msg_new_quote_content);

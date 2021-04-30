@@ -17,6 +17,7 @@
   <string name="title_settings_dark_theme">Dark Theme</string>
 
   <!-- Labels -->
+  <string name="label_intent_add_quote">Save quote</string>
   <string name="label_hourly">Hourly</string>
   <string name="label_daily">Daily</string>
   <string name="label_monthly">Monthly</string>
