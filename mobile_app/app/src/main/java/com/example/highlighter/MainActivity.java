@@ -241,4 +241,9 @@ public class MainActivity extends AppCompatActivity {
       button.setText(R.string.fa_tag_solid);
     }
   }
+
+  public void launchAbout(View view) {
+    Intent intent = new Intent(this.getApplicationContext(), AboutActivity.class);
+    this.startActivityForResult(intent, Configuration.INTENT_REQ_CODE_ABOUT);
+  }
 }

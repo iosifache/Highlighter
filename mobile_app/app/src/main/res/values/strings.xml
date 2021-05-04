@@ -15,6 +15,7 @@
   <string name="title_settings_proxy_url">Proxy Website URL</string>
   <string name="title_settings_sync">Sync Interval</string>
   <string name="title_settings_dark_theme">Dark Theme</string>
+  <string name="title_about">About</string>
 
   <!-- Labels -->
   <string name="label_intent_add_quote">Save quote</string>
@@ -37,6 +38,8 @@
   <string name="msg_new_source_url">Enter the value of the <b>source URL</b>.</string>
   <string name="msg_new_quote_content">Enter the value of the <b>quote content</b>.</string>
   <string name="msg_new_topics">Enter the <b>labels</b>, prefixed with \"<i>#</i>\" and concatenated by \"<i> </i>\".</string>
+  <string name="msg_credits">This application is <a href="https://github.com/iosifache/Highlighter">open-source</a> and coded with &#9829;.</string>
+  <string name="msg_thanks">Special thanks to <a href="https://www.notion.so/">Notion.so</a>, for developing an amazing piece of software, and to <a href="https://www.flaticon.com/">FlatIcon</a>, for offering their beautiful icons.</string>
   <string name="msg_lorem_short">Lorem ipsum</string>
   <string name="msg_lorem_medium">Lorem ipsum dolor sit amet, consectetur elit.</string>
   <string name="msg_lorem_long">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer interdum urna euismod, vulputate velit in, accumsan velit. Phasellus finibus eros vel nunc dapibus, non lacinia orci pellentesque. Fusce fermentum dui vitae dapibus aliquam. Suspendisse in posuere ipsum. Donec consequat, enim in auctor dignissim, tellus leo dictum ipsum, vel blandit mi sem in ante. Phasellus nec nisl vel velit semper faucibus. Quisque non porttitor velit. Etiam ut arcu ut elit ornare mollis.</string>

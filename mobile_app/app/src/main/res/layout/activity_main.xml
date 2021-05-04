@@ -22,7 +22,7 @@
 
   <!-- Menu button -->
   <info.androidhive.fontawesome.FontTextView
-    android:id="@+id/btn_launch_settings"
+    android:id="@+id/btn_launch_info"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_marginTop="20dp"
@@ -30,13 +30,27 @@
     android:layout_marginRight="25dp"
     android:layout_alignParentEnd="true"
     android:layout_alignParentRight="true"
+    android:text="@string/fa_info_solid"
+    android:textColor="?attr/colorPrimary"
+    android:textSize="20sp"
+    app:solid_icon="true"
+    android:clickable="true"
+    android:focusable="true"
+    android:onClick="launchAbout" />
+  <info.androidhive.fontawesome.FontTextView
+    android:id="@+id/btn_launch_settings"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="20dp"
+    android:layout_marginEnd="25dp"
+    android:layout_marginRight="25dp"
+    android:layout_toLeftOf="@id/btn_launch_info"
+    android:layout_toStartOf="@id/btn_launch_info"
     android:text="@string/fa_cog_solid"
     android:textColor="?attr/colorPrimary"
     android:textSize="20sp"
     app:solid_icon="true"
-    android:onClick="editSettings"
-    android:clickable="true"
-    android:focusable="true" />
+    android:onClick="editSettings" />
   <info.androidhive.fontawesome.FontTextView
     android:id="@+id/btn_launch_statistics"
     android:layout_width="wrap_content"
@@ -47,19 +61,6 @@
     android:layout_toLeftOf="@id/btn_launch_settings"
     android:layout_toStartOf="@id/btn_launch_settings"
     android:text="@string/fa_chart_area_solid"
-    android:textColor="?attr/colorPrimary"
-    android:textSize="20sp"
-    app:solid_icon="true" />
-  <info.androidhive.fontawesome.FontTextView
-    android:id="@+id/btn_launch_search"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_marginTop="20dp"
-    android:layout_marginEnd="25dp"
-    android:layout_marginRight="25dp"
-    android:layout_toLeftOf="@id/btn_launch_statistics"
-    android:layout_toStartOf="@id/btn_launch_statistics"
-    android:text="@string/fa_search_solid"
     android:textColor="?attr/colorPrimary"
     android:textSize="20sp"
     app:solid_icon="true"

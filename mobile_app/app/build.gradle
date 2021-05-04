@@ -1,5 +1,6 @@
 plugins {
     id 'com.android.application'
+    id 'com.google.secrets_gradle_plugin' version '0.4'
 }
 
 android {
@@ -28,8 +29,13 @@ android {
     }
 }
 
+secrets {
+    propertiesFileName 'secrets.properties'
+}
+
 dependencies {
     implementation 'android.arch.persistence.room:runtime:1.1.1'
+    implementation 'com.google.android.gms:play-services-maps:17.0.1'
     annotationProcessor 'android.arch.persistence.room:compiler:1.1.1'
 
     implementation group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: '2.12.3'

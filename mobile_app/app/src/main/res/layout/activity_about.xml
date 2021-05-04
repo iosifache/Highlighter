@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:orientation="vertical"
+  android:theme="@style/Theme.Highlighter"
+  tools:context=".AboutActivity">
+
+  <!-- Logo -->
+  <ImageView
+    android:layout_width="50dp"
+    android:layout_height="50dp"
+    android:layout_marginTop="20dp"
+    android:layout_marginStart="20dp"
+    android:layout_marginLeft="20dp"
+    android:contentDescription="@string/desc_logo"
+    android:src="@drawable/ic_logo" />
+
+  <!-- Buttons -->
+  <info.androidhive.fontawesome.FontTextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="20dp"
+    android:layout_marginEnd="20dp"
+    android:layout_marginRight="20dp"
+    android:layout_alignParentEnd="true"
+    android:layout_alignParentRight="true"
+    android:text="@string/fa_chevron_left_solid"
+    android:textColor="?attr/colorPrimary"
+    android:textSize="20sp"
+    app:solid_icon="true"
+    android:onClick="goBack"
+    tools:ignore="RelativeOverlap" />
+
+  <!-- Title -->
+  <TextView
+    android:textStyle="bold"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="100dp"
+    android:layout_marginStart="10dp"
+    android:layout_marginLeft="10dp"
+    android:text="@string/title_about"
+    android:textSize="24sp" />
+
+  <!-- Credits and thanks -->
+  <TextView
+    android:id="@+id/tv_credits"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="145dp"
+    android:layout_marginLeft="10dp"
+    android:layout_marginRight="10dp"
+    android:text="@string/msg_credits" />
+  <TextView
+    android:id="@+id/tv_thanks"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="180dp"
+    android:layout_marginLeft="10dp"
+    android:layout_marginRight="10dp"
+    android:text="@string/msg_thanks" />
+
+  <!-- Map -->
+  <com.google.android.gms.maps.MapView
+    android:id="@+id/mv_map"
+    android:layout_width="match_parent"
+    android:layout_height="100dp"
+    android:layout_marginTop="240dp" />
+
+</RelativeLayout>

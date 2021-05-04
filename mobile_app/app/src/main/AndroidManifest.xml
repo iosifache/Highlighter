@@ -4,6 +4,12 @@
   package="com.example.highlighter">
 
   <uses-permission android:name="android.permission.INTERNET" />
+  <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
+
+  <permission
+    android:name="com.example.permission.MAPS_RECEIVE"
+    android:protectionLevel="signature" />
+  <uses-permission android:name="com.example.permission.MAPS_RECEIVE" />
 
   <application
     android:allowBackup="true"
@@ -11,9 +17,15 @@
     android:label="@string/title_app_name"
     android:roundIcon="@mipmap/ic_launcher_round"
     android:supportsRtl="true"
-    android:usesCleartextTraffic="true"
     android:theme="@style/Theme.Highlighter"
+    android:usesCleartextTraffic="true"
     tools:targetApi="m">
+
+    <meta-data
+      android:name="com.google.android.maps.v2.API_KEY"
+      android:value="${MAPS_API_KEY}" />
+
+    <activity android:name=".AboutActivity" />
     <activity android:name=".SettingsActivity" />
     <activity android:name=".StringPropertyEditDialog" />
     <activity
@@ -21,7 +33,9 @@
       android:label="@string/label_intent_add_quote">
       <intent-filter>
         <action android:name="android.intent.action.PROCESS_TEXT" />
+
         <category android:name="android.intent.category.DEFAULT" />
+
         <data android:mimeType="text/plain" />
       </intent-filter>
     </activity>
@@ -29,6 +43,7 @@
     <activity android:name=".MainActivity">
       <intent-filter>
         <action android:name="android.intent.action.MAIN" />
+
         <category android:name="android.intent.category.LAUNCHER" />
       </intent-filter>
     </activity>
