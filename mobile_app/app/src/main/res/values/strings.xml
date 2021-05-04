@@ -26,6 +26,7 @@
   <string name="desc_logo">Highlighter Logo</string>
 
   <!-- Input fields hints -->
+  <string name="hint_search_keywords">Search Keywords</string>
   <string name="hint_property_new_val">New value of the property</string>
   <string name="hint_property_api_key">The API key for Notion.so</string>
   <string name="hint_settings_collection_url">The URL of the Notion.so collection</string>

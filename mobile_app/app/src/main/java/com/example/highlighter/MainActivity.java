@@ -4,7 +4,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ListView;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -26,7 +29,9 @@ public class MainActivity extends AppCompatActivity {
   public static MainActivity instance = null;
   private QuoteDAO quotesDAO = null;
   private ArrayList<Quote> quotesList = new ArrayList<>();
+  private ArrayList<Quote> filteredQuotesList = new ArrayList<>();
   private CustomQuotesListAdaptor adapter;
+  private boolean isContentFilter = true;
   private int syncInterval;
   private long lastUpdate;
   private int oldTextColor = -1;
@@ -43,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
     ApplicationDatabase database = ApplicationDatabase.getInstance(this);
     this.quotesDAO = database.quoteDAO();
     this.quotesList = (ArrayList<Quote>) this.quotesDAO.getAll();
+    this.filteredQuotesList.addAll(this.quotesList);
 
     // Clear the preferences
     if (Configuration.SHARED_PREFERENCES_CLEAR_ON_START) {
@@ -51,13 +57,13 @@ public class MainActivity extends AppCompatActivity {
       settings.edit().clear().apply();
     }
 
-    ListView quotesList = findViewById(R.id.main_lw_quotes);
+    ListView quotesListView = findViewById(R.id.main_lw_quotes);
 
     // Attach the custom adapter
     Context context = getApplicationContext();
     context.setTheme(R.style.Theme_Highlighter);
-    this.adapter = new CustomQuotesListAdaptor(this.quotesList, this);
-    quotesList.setAdapter(this.adapter);
+    this.adapter = new CustomQuotesListAdaptor(this.filteredQuotesList, this);
+    quotesListView.setAdapter(this.adapter);
 
     // Check if an update needs to be executed
     this.updateConfiguration();
@@ -80,10 +86,36 @@ public class MainActivity extends AppCompatActivity {
       }
     }
 
+    // Set a change handler for the search keywords
+    EditText searchKeywords = this.findViewById(R.id.et_search_keywords);
+    searchKeywords.addTextChangedListener(new TextWatcher() {
+      @Override
+      public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+      }
+
+      @Override
+      public void onTextChanged(CharSequence s, int start, int before, int count) {
+      }
+
+      @Override
+      public void afterTextChanged(Editable s) {
+        String keywords = s.toString();
+
+        ArrayList<Quote> result;
+        if (isContentFilter) {
+          result = (ArrayList<Quote>) quotesDAO.searchByContent(keywords);
+
+        } else {
+          result = (ArrayList<Quote>) quotesDAO.searchByLabel(keywords);
+        }
+        setQuotesList(result, true);
+      }
+    });
+
   }
 
   @Override
-  public void onDestroy(){
+  public void onDestroy() {
     super.onDestroy();
 
     ApplicationDatabase.destroyInstance();
@@ -133,15 +165,20 @@ public class MainActivity extends AppCompatActivity {
     }
   }
 
-  public void setQuotesList(ArrayList<Quote> quotesList) {
+  public void setQuotesList(ArrayList<Quote> quotesList, boolean onlyFiltered) {
     // Update the local list of objects
-    this.quotesList.clear();
-    this.quotesList.addAll(quotesList);
+    if (!onlyFiltered) {
+      this.quotesList.clear();
+      this.quotesList.addAll(quotesList);
+    }
+    this.filteredQuotesList.clear();
+    this.filteredQuotesList.addAll(quotesList);
 
     // Update the database
-    this.quotesDAO.deleteAll();
-    this.quotesDAO.insertAll(this.quotesList);
-
+    if (!onlyFiltered) {
+      this.quotesDAO.deleteAll();
+      this.quotesDAO.insertAll(this.quotesList);
+    }
     this.adapter.notifyDataSetChanged();
   }
 
@@ -174,7 +211,7 @@ public class MainActivity extends AppCompatActivity {
       }
 
       // Update the quotes
-      this.setQuotesList((ArrayList<Quote>) this.quotesDAO.getAll());
+      this.setQuotesList((ArrayList<Quote>) this.quotesDAO.getAll(), false);
 
       this.adapter.notifyDataSetChanged();
     } else if (requestCode == Configuration.INTENT_REQ_CODE_SETTINGS && resultCode == RESULT_OK
@@ -193,4 +230,15 @@ public class MainActivity extends AppCompatActivity {
     this.startActivityForResult(intent, Configuration.INTENT_REQ_CODE_SETTINGS);
   }
 
+  public void switchSearchFilter(View view) {
+    this.isContentFilter = !this.isContentFilter;
+
+    // Change the icon based on the filter
+    FontTextView button = this.findViewById(R.id.btn_search_filter);
+    if (this.isContentFilter) {
+      button.setText(R.string.fa_font_solid);
+    } else {
+      button.setText(R.string.fa_tag_solid);
+    }
+  }
 }

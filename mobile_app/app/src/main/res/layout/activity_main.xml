@@ -62,7 +62,8 @@
     android:text="@string/fa_search_solid"
     android:textColor="?attr/colorPrimary"
     android:textSize="20sp"
-    app:solid_icon="true" />
+    app:solid_icon="true"
+    tools:ignore="RelativeOverlap" />
 
   <!-- Title -->
   <TextView
@@ -76,12 +77,45 @@
     android:textColor="?attr/colorPrimary"
     android:textSize="24sp" />
 
+  <!-- Search field -->
+  <RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="150dp">
+    <EditText
+      android:id="@+id/et_search_keywords"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="10dp"
+      android:layout_marginEnd="60dp"
+      android:layout_marginLeft="10dp"
+      android:layout_marginRight="60dp"
+      android:inputType="text"
+      android:hint="@string/hint_search_keywords"
+      android:autofillHints="@string/hint_search_keywords" />
+    <info.androidhive.fontawesome.FontTextView
+      android:id="@+id/btn_search_filter"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="10dp"
+      android:layout_marginEnd="25dp"
+      android:layout_marginRight="25dp"
+      android:layout_alignParentEnd="true"
+      android:layout_alignParentRight="true"
+      android:text="@string/fa_font_solid"
+      android:textColor="?attr/colorPrimary"
+      android:textSize="20sp"
+      app:solid_icon="true"
+      tools:ignore="RelativeOverlap"
+      android:onClick="switchSearchFilter" />
+  </RelativeLayout>
+
   <!-- Quotes list -->
   <ListView
     android:id="@+id/main_lw_quotes"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="150dp"
+    android:layout_marginTop="190dp"
     android:divider="@android:color/transparent"
     tools:listitem="@layout/activity_quotes_list_item" />
 

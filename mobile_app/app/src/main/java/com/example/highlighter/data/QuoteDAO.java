@@ -14,6 +14,12 @@ public interface QuoteDAO {
   @Query("SELECT * FROM quotes")
   List<Quote> getAll();
 
+  @Query("SELECT * FROM quotes WHERE content LIKE '%' || :contentPart || '%'")
+  List<Quote> searchByContent(String contentPart);
+
+  @Query("SELECT * FROM quotes WHERE labels LIKE '%' || :labelPart || '%'")
+  List<Quote> searchByLabel(String labelPart);
+
   @Insert
   void insert(Quote quote);
 

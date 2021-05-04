@@ -30,7 +30,7 @@ public class NotionDownloader extends AsyncTask<Void, Void, ArrayList<Quote>> {
   protected void onPostExecute(ArrayList<Quote> result) {
     super.onPostExecute(result);
 
-    this.parentActivity.setQuotesList(result);
+    this.parentActivity.setQuotesList(result, false);
   }
 }
 
