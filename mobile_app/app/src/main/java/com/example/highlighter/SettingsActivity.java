@@ -105,6 +105,7 @@ public class SettingsActivity extends AppCompatActivity {
 
     setResult(RESULT_OK, intent);
     finish();
+    overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
   }
 
   public void downloadFromNotion(View view) {

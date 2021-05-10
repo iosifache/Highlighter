@@ -64,6 +64,7 @@ public class CustomQuotesListAdaptor extends ArrayAdapter<Quote> {
 
       ((MainActivity) context)
           .startActivityForResult(intent, Configuration.INTENT_REQ_CODE_QUOTE_VIEW);
+      ((MainActivity) context).overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     });
 
     return listItem;

@@ -228,6 +228,7 @@ public class MainActivity extends AppCompatActivity {
   public void editSettings(View view) {
     Intent intent = new Intent(this.getApplicationContext(), SettingsActivity.class);
     this.startActivityForResult(intent, Configuration.INTENT_REQ_CODE_SETTINGS);
+    this.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
   }
 
   public void switchSearchFilter(View view) {
@@ -242,8 +243,15 @@ public class MainActivity extends AppCompatActivity {
     }
   }
 
+  public void launchStatistics(View view) {
+    Intent intent = new Intent(this.getApplicationContext(), StatisticsActivity.class);
+    this.startActivityForResult(intent, Configuration.INTENT_REQ_CODE_STATISTICS);
+    this.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+  }
+
   public void launchAbout(View view) {
     Intent intent = new Intent(this.getApplicationContext(), AboutActivity.class);
     this.startActivityForResult(intent, Configuration.INTENT_REQ_CODE_ABOUT);
+    this.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
   }
 }

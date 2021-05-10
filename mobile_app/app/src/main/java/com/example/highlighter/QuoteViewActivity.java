@@ -92,6 +92,7 @@ public class QuoteViewActivity extends AppCompatActivity {
 
     setResult(RESULT_OK, intent);
     finish();
+    overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
   }
 
   public void delete(View view) {
@@ -103,6 +104,7 @@ public class QuoteViewActivity extends AppCompatActivity {
 
     setResult(RESULT_OK, intent);
     finish();
+    overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
   }
 
   @SuppressLint("NonConstantResourceId")

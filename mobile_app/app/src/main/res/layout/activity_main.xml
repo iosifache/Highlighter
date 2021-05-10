@@ -64,6 +64,7 @@
     android:textColor="?attr/colorPrimary"
     android:textSize="20sp"
     app:solid_icon="true"
+    android:onClick="launchStatistics"
     tools:ignore="RelativeOverlap" />
 
   <!-- Title -->

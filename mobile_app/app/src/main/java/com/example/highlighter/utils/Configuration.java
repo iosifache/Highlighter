@@ -12,6 +12,15 @@ public class Configuration {
   public static double MAP_LONGITUDE = 26.085095;
   public static float MAP_ZOOM = 15;
   public static String MAP_MARKER_TITLE = "Military Technical Academy 'Ferdinand I' Bucharest";
+  public static String QUOTES_COUNT_MSG_FMT = "There are <b>%s</b> quotes stored in the app.";
+  public static String POPULAR_LABELS = "Your most popular labels are:";
+  public static String POPULAR_LABEL_FMT = "<br/>%d. <b>%s</b>, with %d occurrences and last use on %s";
+  public static int POPULAR_LABELS_COUNT = 3;
+  public static int DAILY_QUOTES_TO_DISPLAY = 7;
+  public static String QUOTES_PER_DAY_CHART_LABEL = "Quotes per Day";
+  public static String TODAY_CHART_LABEL = "today";
+  public static String YESTERDAY_CHART_LABEL = "yesterday";
+  public static String DAYS_AGO_LABEL_FMT = "%d days ago";
 
   // API
   public static String API_ROUTE_FORMAT = "quotes/%s/%s";
@@ -19,7 +28,8 @@ public class Configuration {
   // Intent extra parameters
   public static int INTENT_REQ_CODE_QUOTE_VIEW = 0;
   public static int INTENT_REQ_CODE_SETTINGS = 1;
-  public static int INTENT_REQ_CODE_ABOUT = 2;
+  public static int INTENT_REQ_CODE_STATISTICS = 2;
+  public static int INTENT_REQ_CODE_ABOUT = 3;
   public static String INTENT_EXTRA_MODIFIED_QUOTE_NAME = "quote";
   public static String INTENT_EXTRA_IS_QUOTE_REMOVED = "is_quote_removed";
   public static String INTENT_EXTRA_SETTINGS_CHANGED = "settings_changed";

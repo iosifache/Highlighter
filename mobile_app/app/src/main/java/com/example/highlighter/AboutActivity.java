@@ -102,5 +102,6 @@ public class AboutActivity extends AppCompatActivity implements OnMapReadyCallba
 
     setResult(RESULT_OK, intent);
     finish();
+    overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
   }
 }

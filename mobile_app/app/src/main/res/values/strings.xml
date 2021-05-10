@@ -15,6 +15,7 @@
   <string name="title_settings_proxy_url">Proxy Website URL</string>
   <string name="title_settings_sync">Sync Interval</string>
   <string name="title_settings_dark_theme">Dark Theme</string>
+  <string name="title_statistics">Statistics</string>
   <string name="title_about">About</string>
 
   <!-- Labels -->
