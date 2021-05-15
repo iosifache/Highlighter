@@ -3,34 +3,31 @@
   <!-- Base application theme -->
   <style name="Theme.Highlighter" parent="Theme.MaterialComponents.DayNight.NoActionBar">
 
-    <!-- Primary brand color -->
+    <!-- Colors -->
     <item name="colorPrimary">@color/blue_nights_gray</item>
     <item name="colorPrimaryVariant">@color/blue_nights_gray</item>
     <item name="colorOnPrimary">@color/white</item>
-
-    <!-- Secondary brand color -->
     <item name="colorSecondary">@color/lynx_white</item>
     <item name="colorSecondaryVariant">@color/lynx_white</item>
-    <item name="colorOnSecondary">@color/black</item>
-
-    <!-- Background -->
+    <item name="colorOnSecondary">@color/blue_nights_gray</item>
+    <item name="colorAccent">@color/blue_nights_gray</item>
+    <item name="colorSurface">@color/lynx_white</item>
+    <item name="colorOnSurface">@color/black</item>
     <item name="background">@color/white</item>
-
-    <!-- Status bar color -->
+    <item name="colorOnBackground">@color/blue_nights_gray</item>
     <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
 
-    <!-- Hided action bar -->
+    <!-- Hidden action bar -->
     <item name="windowActionBar">false</item>
     <item name="windowNoTitle">true</item>
     <item name="android:windowFullscreen">true</item>
 
-  </style>
-
-  <style name="CustomActivityAnimation" parent="@android:style/Animation.Activity">
+    <!-- Animations -->
     <item name="android:activityOpenEnterAnimation">@anim/slide_in_right</item>
     <item name="android:activityOpenExitAnimation">@anim/slide_out_left</item>
     <item name="android:activityCloseEnterAnimation">@anim/slide_in_left</item>
     <item name="android:activityCloseExitAnimation">@anim/slide_out_right</item>
+
   </style>
 
 </resources>

@@ -7,9 +7,9 @@
   android:layout_height="match_parent"
   android:orientation="vertical"
   android:theme="@style/Theme.Highlighter"
-  tools:context=".MainActivity">
+  tools:context=".activities.MainActivity">
 
-  <!-- Logo -->
+  <!-- Menu -->
   <ImageView
     android:layout_width="50dp"
     android:layout_height="50dp"
@@ -19,8 +19,6 @@
     android:contentDescription="@string/desc_logo"
     android:src="@drawable/ic_logo"
     android:onClick="editSettings" />
-
-  <!-- Menu button -->
   <info.androidhive.fontawesome.FontTextView
     android:id="@+id/btn_launch_info"
     android:layout_width="wrap_content"
@@ -67,22 +65,22 @@
     android:onClick="launchStatistics"
     tools:ignore="RelativeOverlap" />
 
-  <!-- Title -->
+  <!-- Content -->
   <TextView
     android:textStyle="bold"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="30dp"
     android:layout_marginTop="100dp"
     android:layout_marginStart="10dp"
+    android:layout_marginEnd="10dp"
     android:layout_marginLeft="10dp"
+    android:layout_marginRight="10dp"
     android:text="@string/title_quote_list"
     android:textColor="?attr/colorPrimary"
     android:textSize="24sp" />
-
-  <!-- Search field -->
   <RelativeLayout
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="40dp"
     android:layout_marginTop="150dp">
     <EditText
       android:id="@+id/et_search_keywords"
@@ -93,6 +91,7 @@
       android:layout_marginLeft="10dp"
       android:layout_marginRight="60dp"
       android:inputType="text"
+      android:textColor="?attr/colorPrimary"
       android:hint="@string/hint_search_keywords"
       android:autofillHints="@string/hint_search_keywords" />
     <info.androidhive.fontawesome.FontTextView
@@ -111,13 +110,11 @@
       tools:ignore="RelativeOverlap"
       android:onClick="switchSearchFilter" />
   </RelativeLayout>
-
-  <!-- Quotes list -->
   <ListView
-    android:id="@+id/main_lw_quotes"
+    android:id="@+id/lw_quotes"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="190dp"
+    android:layout_marginTop="200dp"
     android:divider="@android:color/transparent"
     tools:listitem="@layout/activity_quotes_list_item" />
 

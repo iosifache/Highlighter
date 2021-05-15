@@ -28,7 +28,7 @@ def get_database_entries(api_key: str, encoded_collection_url: str):
         quotes.append({
             'id': row_id,
             'sourceTitle': row.source_title,
-            'sourceURL': row.source_url,
+            'sourceUrl': row.source_url,
             'content': row.quote,
             'creationDate': row.creation_date.start.strftime('%d.%m.%Y'),
             'labels': row.labels
@@ -61,12 +61,12 @@ def update_database_entries(api_key: str, encoded_collection_url: str):
         row = collection_view.collection.add_row()
         row.quote = quote["content"]
         row.source_title = quote["sourceTitle"]
-        row.source_url = quote["sourceURL"]
+        row.source_url = quote["sourceUrl"]
         row.creation_date = NotionDate(start=datetime.datetime.strptime(
             quote["creationDate"], "%d.%m.%Y"))
         row.labels = quote["labels"]
 
-    return ""
+    return "OK"
 
 
 if __name__ == '__main__':

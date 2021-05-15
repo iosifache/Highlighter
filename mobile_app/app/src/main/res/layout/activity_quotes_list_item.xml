@@ -14,33 +14,31 @@
     android:layout_margin="10dp"
     android:paddingStart="3dp"
     android:paddingLeft="3dp"
-    android:background="?attr/colorPrimary"
+    android:background="?attr/colorAccent"
     tools:ignore="RtlSymmetry,UselessParent">
 
-    <!-- Quote content -->
     <TextView
       android:id="@+id/tv_quotes_list_item_content"
       android:layout_width="fill_parent"
       android:layout_height="wrap_content"
       android:padding="10dp"
-      android:background="?attr/colorSecondary"
+      android:background="?attr/colorSurface"
       android:justificationMode="inter_word"
       android:maxHeight="120dp"
       android:minHeight="120dp"
       android:text="@string/msg_lorem_medium"
+      android:textColor="?attr/colorOnSurface"
       tools:targetApi="o" />
 
-    <!-- Bottom details -->
     <RelativeLayout
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_alignBottom="@+id/tv_quotes_list_item_content"
       android:paddingStart="10dp"
       android:paddingLeft="3dp"
-      android:background="?attr/colorSecondary"
+      android:background="?attr/colorSurface"
       tools:ignore="RtlSymmetry,UselessParent">
 
-      <!-- View button -->
       <TextView
         android:id="@+id/tv_quotes_list_item_labels"
         android:layout_width="match_parent"
@@ -48,9 +46,9 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:minHeight="30dp"
+        android:textColor="?attr/colorOnSurface"
         android:text="@string/msg_lorem_short" />
 
-      <!-- Quote tags -->
       <info.androidhive.fontawesome.FontTextView
         android:id="@+id/btn_quotes_list_item_view_quote"
         android:layout_width="wrap_content"
@@ -60,7 +58,7 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:text="@string/fa_eye_solid"
-        android:textColor="?attr/colorPrimary"
+        android:textColor="?attr/colorOnSurface"
         android:textSize="20sp"
         app:solid_icon="true"
         tools:ignore="RelativeOverlap" />

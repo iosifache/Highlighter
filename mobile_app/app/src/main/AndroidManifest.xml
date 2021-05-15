@@ -3,49 +3,50 @@
   xmlns:tools="http://schemas.android.com/tools"
   package="com.example.highlighter">
 
+  <!-- User permissions -->
   <uses-permission android:name="android.permission.INTERNET" />
   <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
+  <uses-permission android:name="com.example.permission.MAPS_RECEIVE" />
 
+  <!-- Security permissions -->
   <permission
     android:name="com.example.permission.MAPS_RECEIVE"
     android:protectionLevel="signature" />
 
-  <uses-permission android:name="com.example.permission.MAPS_RECEIVE" />
-
+  <!-- Application -->
   <application
-    android:allowBackup="true"
     android:icon="@mipmap/ic_launcher"
     android:label="@string/title_app_name"
     android:roundIcon="@mipmap/ic_launcher_round"
     android:supportsRtl="true"
     android:theme="@style/Theme.Highlighter"
     android:usesCleartextTraffic="true"
-    tools:targetApi="m">
-    <activity android:name=".StatisticsActivity"></activity>
+    tools:targetApi="m"
+    tools:ignore="AllowBackup">
+    <activity android:name=".activities.StatisticsActivity" />
 
+    <!-- Google Maps API key -->
     <meta-data
       android:name="com.google.android.maps.v2.API_KEY"
       android:value="${MAPS_API_KEY}" />
 
-    <activity android:name=".AboutActivity" />
-    <activity android:name=".SettingsActivity" />
-    <activity android:name=".StringPropertyEditDialog" />
+    <!-- Activities and their intent filters -->
+    <activity android:name=".activities.AboutActivity" />
+    <activity android:name=".activities.SettingsActivity" />
+    <activity android:name=".activities.StringPropertyEditDialog" />
     <activity
-      android:name=".QuoteViewActivity"
+      android:name=".activities.QuoteViewActivity"
       android:label="@string/label_intent_add_quote">
       <intent-filter>
         <action android:name="android.intent.action.PROCESS_TEXT" />
-
         <category android:name="android.intent.category.DEFAULT" />
-
         <data android:mimeType="text/plain" />
       </intent-filter>
     </activity>
-    <activity android:name=".QuotesListItemActivity" />
-    <activity android:name=".MainActivity">
+    <activity android:name=".activities.QuotesListItemActivity" />
+    <activity android:name=".activities.MainActivity">
       <intent-filter>
         <action android:name="android.intent.action.MAIN" />
-
         <category android:name="android.intent.category.LAUNCHER" />
       </intent-filter>
     </activity>

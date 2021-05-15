@@ -12,7 +12,7 @@
   <string name="title_settings">Settings</string>
   <string name="title_settings_api_key">Notion.so API Key</string>
   <string name="title_settings_collection_url">Notion.so Collection URL</string>
-  <string name="title_settings_proxy_url">Proxy Website URL</string>
+  <string name="title_settings_proxy_url">Proxy Server URL</string>
   <string name="title_settings_sync">Sync Interval</string>
   <string name="title_settings_dark_theme">Dark Theme</string>
   <string name="title_statistics">Statistics</string>
@@ -23,16 +23,21 @@
   <string name="label_hourly">Hourly</string>
   <string name="label_daily">Daily</string>
   <string name="label_monthly">Monthly</string>
+  <string name="label_chart_today">Today</string>
+  <string name="label_chart_yesterday">Yesterday</string>
+  <string name="label_chart_days_ago_fmt">%d days ago</string>
 
-  <!-- Content descriptions (for images) -->
+  <!-- Content descriptions -->
   <string name="desc_logo">Highlighter Logo</string>
+  <string name="desc_marker">Romania</string>
+  <string name="desc_quotes_per_day_chart">Quotes per Day</string>
 
   <!-- Input fields hints -->
   <string name="hint_search_keywords">Search Keywords</string>
   <string name="hint_property_new_val">New value of the property</string>
   <string name="hint_property_api_key">The API key for Notion.so</string>
   <string name="hint_settings_collection_url">The URL of the Notion.so collection</string>
-  <string name="hint_settings_proxy_url">The URL of the proxy website</string>
+  <string name="hint_settings_proxy_url">The URL of the proxy server</string>
 
   <!-- Messages -->
   <string name="msg_new_source_name">Enter the value of the <b>source name</b>.</string>
@@ -41,20 +46,34 @@
   <string name="msg_new_topics">Enter the <b>labels</b>, prefixed with \"<i>#</i>\" and concatenated by \"<i> </i>\".</string>
   <string name="msg_credits">This application is <a href="https://github.com/iosifache/Highlighter">open-source</a> and coded with &#9829;.</string>
   <string name="msg_thanks">Special thanks to <a href="https://www.notion.so/">Notion.so</a>, for developing an amazing piece of software, and to <a href="https://www.flaticon.com/">FlatIcon</a>, for offering their beautiful icons.</string>
+  <string name="msg_statistic_total_quotes_fmt">There are <b>%s</b> quotes stored in the app.</string>
+  <string name="msg_most_popular_labels">Your most popular labels are:</string>
+  <string name="msg_popular_label_fmt">&lt;br/&gt;%d. &lt;b&gt;%s&lt;/b&gt;, with %d occurrences and last use on %s</string>
+
+  <!-- Lorem ipsum messages -->
   <string name="msg_lorem_short">Lorem ipsum</string>
   <string name="msg_lorem_medium">Lorem ipsum dolor sit amet, consectetur elit.</string>
   <string name="msg_lorem_long">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer interdum urna euismod, vulputate velit in, accumsan velit. Phasellus finibus eros vel nunc dapibus, non lacinia orci pellentesque. Fusce fermentum dui vitae dapibus aliquam. Suspendisse in posuere ipsum. Donec consequat, enim in auctor dignissim, tellus leo dictum ipsum, vel blandit mi sem in ante. Phasellus nec nisl vel velit semper faucibus. Quisque non porttitor velit. Etiam ut arcu ut elit ornare mollis.</string>
+
+  <!-- Snackbar messages -->
+  <string name="ntf_success_property_edit">The new value of the property was saved.</string>
+  <string name="ntf_success_settings">The settings were saved.</string>
+  <string name="ntf_invalid_source_url">The source URL is invalid.</string>
+  <string name="ntf_invalid_api_key">The Notion.so API key is invalid.</string>
+  <string name="ntf_invalid_proxy_server_url">The proxy server URL is invalid.</string>
+  <string name="ntf_invalid_collection_url">The Notion.so collection URL is invalid.</string>
+  <string name="ntf_success_notion_upload">The upload to Notion.so was successfully executed.</string>
+  <string name="ntf_success_notion_download">The download from Notion.so was successfully executed.</string>
+  <string name="ntf_error_notion_upload">An error occurred while uploading to Notion.so.</string>
+  <string name="ntf_error_notion_download">An error occurred while downloading from Notion.so.</string>
 
   <!-- Action buttons -->
   <string name="action_cancel">Cancel</string>
   <string name="action_ok">OK</string>
   <string name="action_save">Save</string>
   <string name="action_delete">Delete</string>
+  <string name="action_hide">Hide</string>
   <string name="action_notion_download">Download from Notion.so</string>
   <string name="action_notion_upload">Upload to Notion.so</string>
-
-  <!-- Miscellaneous -->
-  <string name="misc_topic_prefix">#</string>
-  <string name="misc_topic_separator">&#160;</string>
 
 </resources>

@@ -1,7 +1,8 @@
-package com.example.highlighter;
+package com.example.highlighter.activities;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build.VERSION_CODES;
 import android.os.Bundle;
 import android.text.Html;
@@ -10,10 +11,13 @@ import android.widget.TextView;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+import com.example.highlighter.R;
 import com.example.highlighter.data.ApplicationDatabase;
 import com.example.highlighter.data.Quote;
 import com.example.highlighter.utils.Configuration;
 import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
@@ -30,23 +34,31 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+/**
+ * Activity displaying statistics about the quotes
+ */
 public class StatisticsActivity extends AppCompatActivity {
 
   private List<Quote> quotesList = null;
 
+  /**
+   * Starts the activity.
+   *
+   * @param savedInstanceState Saved data
+   */
   @RequiresApi(api = VERSION_CODES.N)
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_statistics);
 
-    // Get the quotes
+    // Get the quotes from the database
     ApplicationDatabase database = ApplicationDatabase.getInstance(this);
     this.quotesList = database.quoteDAO().getAll();
 
-    // Get statistics about the labels and for the dates
+    // Compute the statistics about the labels and for their dates
     HashMap<String, LabelDetails> labelsDetails = new HashMap<>();
-    int[] quotesPerDay = new int[Configuration.DAILY_QUOTES_TO_DISPLAY];
+    int[] quotesPerDay = new int[Configuration.UI_DAILY_QUOTES_TO_DISPLAY];
     Date now = new Date();
     for (Quote quote : quotesList) {
       Date quoteCreationDate = quote.getCreationDateAsDate();
@@ -54,7 +66,7 @@ public class StatisticsActivity extends AppCompatActivity {
       // Check if the quote needs to be considered into the chart
       int dayDifference = (int) ((now.getTime() - quoteCreationDate.getTime()) / (1000 * 60 * 60
           * 24));
-      if (dayDifference < Configuration.DAILY_QUOTES_TO_DISPLAY) {
+      if (dayDifference < Configuration.UI_DAILY_QUOTES_TO_DISPLAY) {
         quotesPerDay[dayDifference] += 1;
       }
 
@@ -75,24 +87,25 @@ public class StatisticsActivity extends AppCompatActivity {
       }
     }
 
-    // Bind the information into the user interface
+    // Bind the information
     this.generateQuotesCount();
     this.generateLabelsRanking(labelsDetails);
     this.generateDaysChart(quotesPerDay);
-
   }
 
+  @SuppressLint("StringFormatMatches")
   private void generateQuotesCount() {
     int quotesCount = quotesList.size();
 
     TextView quotesCountTextView = this.findViewById(R.id.tv_quotes_count);
-    quotesCountTextView.setText(
-        Html.fromHtml(String.format(Configuration.QUOTES_COUNT_MSG_FMT, quotesCount)));
+    String quotesCountFormat = this.getResources()
+        .getString(R.string.msg_statistic_total_quotes_fmt);
+    quotesCountTextView.setText(Html.fromHtml(String.format(quotesCountFormat, quotesCount)));
   }
 
   @RequiresApi(api = VERSION_CODES.N)
   private void generateLabelsRanking(HashMap<String, LabelDetails> labelsDetails) {
-    // Sort the mapping
+    // Sort the mapping between label name - details
     Map<String, LabelDetails> sortedLabelsDetails = labelsDetails.entrySet().stream()
         .sorted(Comparator.comparingInt(e -> -e.getValue().occurrences))
         .collect(Collectors.toMap(
@@ -105,33 +118,37 @@ public class StatisticsActivity extends AppCompatActivity {
         ));
 
     // Generate a ranking with the most used labels
+    StringBuilder rankingText = new StringBuilder(
+        this.getResources().getString(R.string.msg_most_popular_labels));
     int index = 1;
-    StringBuilder rankingTextBuilder = new StringBuilder();
-    rankingTextBuilder.append(Configuration.POPULAR_LABELS);
-    SimpleDateFormat formatter = new SimpleDateFormat(Configuration.STRINGIFIED_DATE_FORMAT,
+    String popularLabelFormat = this.getResources().getString(R.string.msg_popular_label_fmt);
+    SimpleDateFormat formatter = new SimpleDateFormat(Configuration.UI_STRINGIFIED_DATE_FORMAT,
         Locale.ENGLISH);
     for (Map.Entry<String, LabelDetails> entry : sortedLabelsDetails.entrySet()) {
       String label = entry.getKey();
       LabelDetails details = entry.getValue();
 
-      rankingTextBuilder
-          .append(String.format(Configuration.POPULAR_LABEL_FMT, index, label, details.occurrences,
-              formatter.format(details.lastUsage)));
+      rankingText.append(String.format(popularLabelFormat, index, label, details.occurrences,
+          formatter.format(details.lastUsage)));
 
       index++;
-      if (index > Configuration.POPULAR_LABELS_COUNT) {
+      if (index > Configuration.UI_POPULAR_LABELS_COUNT) {
         break;
       }
     }
-    rankingTextBuilder.append(".");
+    rankingText.append(".");
 
     // Bind the ranking
-    TextView labelsRankingTextView = this.findViewById(R.id.tv_labels_ranking);
-    labelsRankingTextView.setText(Html.fromHtml(rankingTextBuilder.toString()));
+    TextView labelsRankingTextView = this.findViewById(R.id.tv_ranking);
+    labelsRankingTextView.setText(Html.fromHtml(rankingText.toString()));
   }
 
   @SuppressLint("DefaultLocale")
   private void generateDaysChart(int[] quotesPerDay) {
+    String todayLabel = this.getResources().getString(R.string.label_chart_today);
+    String yesterdayLabel = this.getResources().getString(R.string.label_chart_yesterday);
+    String daysAgoLabelFormat = this.getResources().getString(R.string.label_chart_days_ago_fmt);
+
     List<BarEntry> entries = new ArrayList<>();
     String[] labels = new String[quotesPerDay.length];
     for (int i = 0; i < quotesPerDay.length; i++) {
@@ -141,17 +158,17 @@ public class StatisticsActivity extends AppCompatActivity {
       // Create the corresponding label
       switch (i) {
         case 0:
-          labels[i] = Configuration.TODAY_CHART_LABEL;
+          labels[i] = todayLabel;
           break;
         case 1:
-          labels[i] = Configuration.YESTERDAY_CHART_LABEL;
+          labels[i] = yesterdayLabel;
           break;
         default:
-          labels[i] = String.format(Configuration.DAYS_AGO_LABEL_FMT, i);
+          labels[i] = String.format(daysAgoLabelFormat, i);
       }
     }
 
-    // Define a value formatter for all axis
+    // Define a value formatter to be used for all axis
     ValueFormatter formatter = new ValueFormatter() {
       @Override
       public String getFormattedValue(float value) {
@@ -159,9 +176,21 @@ public class StatisticsActivity extends AppCompatActivity {
       }
     };
 
+    // Get the primary color of the chart
+    SharedPreferences sharedPreferences = this.getSharedPreferences(
+        Configuration.SHARED_PREFERENCES_NAME, MODE_PRIVATE);
+    boolean darkThemeEnabled = sharedPreferences
+        .getBoolean(Configuration.SHARED_PREFERENCES_MEMBER_DARK_THEME, false);
+    int color;
+    if (darkThemeEnabled) {
+      color = ContextCompat.getColor(this, R.color.white);
+    } else {
+      color = ContextCompat.getColor(this, R.color.blue_nights_gray);
+    }
+
     // Create the dataset and set its color
-    int color = ContextCompat.getColor(this, R.color.blue_nights_gray);
-    BarDataSet dataset = new BarDataSet(entries, Configuration.QUOTES_PER_DAY_CHART_LABEL);
+    String description = this.getResources().getString(R.string.desc_quotes_per_day_chart);
+    BarDataSet dataset = new BarDataSet(entries, description);
     dataset.setColor(color);
 
     // Convert the dataset to raw data used by the chart
@@ -169,31 +198,59 @@ public class StatisticsActivity extends AppCompatActivity {
     data.setValueFormatter(formatter);
 
     // Generate and format the chart
-    BarChart chart = this.findViewById(R.id.chart);
-    chart.getXAxis().setLabelRotationAngle(-30);
-    chart.getAxisLeft().setValueFormatter(formatter);
-    chart.getAxisRight().setValueFormatter(formatter);
-    chart.getXAxis().setValueFormatter(new IndexAxisValueFormatter(labels));
-    chart.getXAxis().setLabelCount(labels.length);
-    chart.getXAxis().setGranularity(1f);
-    chart.getAxisLeft().setGranularity(1f);
-    chart.getAxisRight().setGranularity(1f);
-    chart.getAxisLeft().setGranularityEnabled(true);
-    chart.getAxisRight().setGranularityEnabled(true);
-    chart.getXAxis().setGranularityEnabled(true);
-    chart.getDescription().setEnabled(false);
+    BarChart labelsBarChart = this.findViewById(R.id.bc_chart);
+    labelsBarChart.getDescription().setEnabled(false);
+    XAxis xAxis = labelsBarChart.getXAxis();
+    xAxis.setValueFormatter(new IndexAxisValueFormatter(labels));
+    xAxis.setLabelRotationAngle(-30);
+    xAxis.setLabelCount(labels.length);
+    xAxis.setGranularity(1f);
+    xAxis.setGranularityEnabled(true);
+    xAxis.setGridColor(color);
+    xAxis.setTextColor(color);
+    xAxis.setAxisLineColor(color);
+    YAxis leftYAxis = labelsBarChart.getAxisLeft();
+    leftYAxis.setValueFormatter(formatter);
+    leftYAxis.setGranularity(1f);
+    leftYAxis.setGranularityEnabled(true);
+    leftYAxis.setGridColor(color);
+    leftYAxis.setTextColor(color);
+    leftYAxis.setAxisLineColor(color);
+    leftYAxis.setZeroLineColor(color);
+    YAxis rightYAxis = labelsBarChart.getAxisRight();
+    rightYAxis.setValueFormatter(formatter);
+    rightYAxis.setGranularity(1f);
+    rightYAxis.setGranularityEnabled(true);
+    rightYAxis.setGridColor(color);
+    rightYAxis.setTextColor(color);
+    rightYAxis.setAxisLineColor(color);
+    rightYAxis.setZeroLineColor(color);
 
     // Set the data and refresh the chart
-    chart.setData(data);
-    chart.invalidate();
+    labelsBarChart.setData(data);
+    labelsBarChart.invalidate();
   }
 
+  /**
+   * Goes back to the calling activity.
+   *
+   * @param view View representing the clicked back button
+   */
   public void goBack(View view) {
     Intent intent = new Intent();
-
     setResult(RESULT_OK, intent);
     finish();
     overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+  }
+
+  /**
+   * Goes back to the calling activity on back button press.
+   */
+  @Override
+  public void onBackPressed() {
+    super.onBackPressed();
+
+    this.goBack(null);
   }
 
   private static class LabelDetails {
@@ -205,5 +262,6 @@ public class StatisticsActivity extends AppCompatActivity {
       this.occurrences = 1;
       this.lastUsage = lastUsage;
     }
+
   }
 }
